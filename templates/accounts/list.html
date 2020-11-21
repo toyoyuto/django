@@ -1,0 +1,8 @@
+{% extends "accounts/base.html" %}
+{% block content %}
+{% for user in lists %}
+<p>{{user}}</p>
+{% endfor %}
+<p>URL</p>
+<p>{% url "accounts:login" %}</p>
+{% endblock %}
