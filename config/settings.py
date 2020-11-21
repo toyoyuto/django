@@ -133,3 +133,6 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'accounts:top'
+
+# バックエンドにキャッシュ保存
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'

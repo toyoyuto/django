@@ -1,18 +1,22 @@
 from django.http import HttpResponse
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import request
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views import generic
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         print("index")
+        lang = request.session.get('hoge')
+        # name = request.session['hoge']
+        print(lang)
         return HttpResponse("You're looking at question %s.")
 
     def post(self, request, *args, **kwargs):
@@ -66,7 +70,8 @@ class LoginView(View):
         if not is_valid:
             template_name = 'accounts/login.html'
             return render(request, template_name, { 'form': form })
-        return render(request, template_name, { 'form': form })
+        request.session['hoge'] = 'su!'
+        return render(request, template_name)
 
 # def login(request):
 #     if request.method == 'GET':
