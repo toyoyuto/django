@@ -2,7 +2,8 @@ from django.http import HttpResponse
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import request
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls.base import reverse
 from django.views import View
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
@@ -10,6 +11,7 @@ from django.views import generic
 from .forms import LoginForm, RegisterForm
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.contrib import messages
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
@@ -65,13 +67,13 @@ class LoginView(View):
     def post(self, request, *args, **kwargs):
         form = LoginForm(data=request.POST)
         print("form")
-        template_name = 'accounts/top.html'
+        template_name = 'accounts/login.html'
         is_valid = form.is_valid()
         if not is_valid:
-            template_name = 'accounts/login.html'
             return render(request, template_name, { 'form': form })
         request.session['hoge'] = 'su!'
-        return render(request, template_name)
+        messages.info(request, "ログインしました")
+        return redirect(reverse('accounts:hello'))
 
 # def login(request):
 #     if request.method == 'GET':

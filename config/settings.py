@@ -51,6 +51,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # 独自
+    # 'accounts.middleware.SitePermissionMiddleware'
 ]
 # 追加
 CORS_ORIGIN_WHITELIST = (
@@ -134,5 +137,7 @@ STATIC_URL = '/static/'
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'accounts:top'
 
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 # バックエンドにキャッシュ保存
 # SESSION_ENGINE = 'django.contrib.sessions.backends.cache'

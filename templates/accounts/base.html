@@ -38,7 +38,12 @@
 
     <!-- メインコンテント -->
     <div class="container mt-3">
-        {% block content %}{% endblock %}
+        {% if messages %}
+         {% for message in messages %}
+            <div>{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+         {% block content %}{% endblock %}
     </div>
 
     <!-- Optional JavaScript -->
