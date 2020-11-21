@@ -133,4 +133,3 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'accounts:top'
-AUTH_USER_MODEL = 'accounts.CustomUser'

@@ -1,6 +1,5 @@
-from django.contrib.auth.forms import AuthenticationForm, UsernameField
+from django.contrib.auth.forms import User, AuthenticationForm, UsernameField
 from django.shortcuts import render
-from .models import CustomUser
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -41,7 +40,7 @@ class LoginForm(AuthenticationForm):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         try:
-            user = CustomUser.objects.get(username=username)
+            user = User.objects.get(username=username)
         except ObjectDoesNotExist:
             raise forms.ValidationError(
                 '正しくない'

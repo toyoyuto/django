@@ -16,12 +16,6 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
-class CustomUser(AbstractUser):
-    class Meta:
-        db_table ='custom_user'
-    login_count = models.IntegerField(verbose_name='ログイン回数', default=0)
-
-
 # class CustomUser(AbstractUser):
 #     class Meta:
 #         db_table ='custom_user'

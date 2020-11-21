@@ -1,0 +1,16 @@
+[
+    {
+      "model": "accounts.Question",
+      "fields": {
+        "question_text": "はじめての投稿",
+        "pub_date": "2020-11-20"
+      }
+    },
+    {
+      "model": "accounts.Question",
+      "fields": {
+        "question_text": "２回目の投稿",
+        "pub_date": "2020-11-20"
+      }
+    }
+]
