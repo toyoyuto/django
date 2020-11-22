@@ -278,3 +278,18 @@ LOGGING = {
         },
     },
 }
+if DEBUG:
+    def show_toolbar(request):
+        return True
+
+
+    INSTALLED_APPS += (
+        'debug_toolbar',
+    )
+    MIDDLEWARE += (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    )
+    # ここで表示する内容を設定できます↓↓基本的にはこれでok
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': show_toolbar,
+    }

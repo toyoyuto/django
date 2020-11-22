@@ -9,6 +9,7 @@ django-cors-headers = "*"
 pillow = "*"
 pymysql = "*"
 django-environ = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 
@@ -20,3 +21,5 @@ start = "python manage.py runserver"
 migrate = "bash -c 'python manage.py makemigrations && python manage.py migrate'"
 startapp = "python manage.py startapp"
 shell = "python manage.py shell"
+showmigrations = "python manage.py showmigrations"
+rollback = "python manage.py migrate"

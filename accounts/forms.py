@@ -31,17 +31,7 @@ class RegisterForm(forms.ModelForm):
         password2 = self.cleaned_data.get('password2')
         if password != password2:
             raise forms.ValidationError('一致してない')
-        # username = self.cleaned_data.get('username')
-        # password = self.cleaned_data.get('password')
-        # try:
-        #     user = User.objects.get(username=username)
-        # except ObjectDoesNotExist:
-        #     raise forms.ValidationError(
-        #         '正しくない'
-        #     )
-        # if not user.check_password(password):
-        #     raise forms.ValidationError('パスワード違う')
-        # return cleaned_data
+
 class LoginForm(AuthenticationForm):
     username = UsernameField(
         label='ユーザー名',
