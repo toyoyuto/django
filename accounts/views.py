@@ -12,6 +12,9 @@ from .forms import LoginForm, RegisterForm
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.contrib import messages
+from .models import Choice, Question, Book
+import logging
+logger = logging.getLogger(__name__)
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
@@ -37,12 +40,14 @@ class UserView(TemplateView):
 class ListView(TemplateView):
     template_name = "accounts/list.html"
     def get_context_data(self, **kwargs):
+        logger.info('test')
         context = super().get_context_data(**kwargs)
-        l_empty = ['toyooka', 'toyooka2']
-        context["lists"] =  l_empty
+        book = Book.objects.all()
+        context["lists"] =  book
         return context
 
 class Top(generic.TemplateView):
+    logger.info('test')
     template_name = 'accounts/top.html'
 
 # class Login(View):

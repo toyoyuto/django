@@ -1,8 +1,9 @@
 {% extends "accounts/base.html" %}
 {% block content %}
-{% for user in lists %}
-<p>{{user}}</p>
+{% load static %}
+{% for book in lists %}
+<p>{{book.image.url}}</p>
+{% comment %} <img str="{{ book.image.url }}"> {% endcomment %}
+<img src="{{ book.image.url }}">
 {% endfor %}
-<p>URL</p>
-<p>{% url "accounts:login" %}</p>
 {% endblock %}

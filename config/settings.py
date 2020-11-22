@@ -12,9 +12,16 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_NAME = os.path.basename(BASE_DIR)
+
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
+# print(env('KEY'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,21 +33,21 @@ SECRET_KEY = 'zyeg5#f9kg13r7)s6n(_f1**me=o)+z_sfq7eqpz_&-fvg5oa!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1', '111.222.333.444', 'mywebsite.com']
 
 # Application definition
 
 INSTALLED_APPS = [
-    'accounts.apps.AccountsConfig',
-    'corsheaders',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'accounts.apps.AccountsConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -90,6 +97,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        # 'NAME': BASE_DIR + '/' + 'db.sqlite3',
         'ATOMIC_REQUESTS': True #autoコミット無効
     }
 }
@@ -130,14 +138,143 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = '/Users/toyooka/toyo-project/django2/{}/static'.format(PROJECT_NAME)
 
+# メディア
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/Users/toyooka/toyo-project/django2/{}/media'.format(PROJECT_NAME)
 
+# ログイン
 LOGIN_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'accounts:top'
 
-
+# メッセージ
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 # バックエンドにキャッシュ保存
 # SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
+
+# ログ
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'procustion': {
+#             'format': '%(asctime)s [%(levelname)s] %(process)d %(thread)d '
+#                       '%(pathname)s %(lineno)d %(message)s'
+#         },
+#     },
+#     'handlers': {
+#         'file': {
+#             'level': 'INFO',
+#             'class': 'logging.FileHandler',
+#             'filename': '/Users/toyooka/toyo-project/django2/{}/app.log'.format(PROJECT_NAME),
+#             'formatter': 'procustion',
+#         }
+#     },
+#     'loggers': {
+#         #　自作アプリ用
+#         '': {
+#             'handlers': ['file'],
+#             'level': 'INFO',
+#             'propagate': False,
+#         },
+#         # # Django本体用
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'INFO',
+#             'propagate': False,
+#         },
+#         # SQL発行
+#         'django.db.backends': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#             'propagate': False,
+#         },
+#     }
+# }
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     # 'formatters': {
+#     #     'develop': {
+#     #         'format': '%(asctime)s [%(levelname)s] %(process)d %(thread)d '
+#     #                   '%(pathname)s %(lineno)d %(message)s'
+#     #     },
+#     # },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'develop',
+#         }
+#     },
+#     'loggers': {
+#         # 自作アプリ用
+#         '': {
+#             'handlers': ['console'],
+#             'level': 'INFO',
+#             'propagate': False,
+#         },
+#         # Django本体用
+#         'django': {
+#             'handlers': ['console'],
+#             'level': 'INFO',
+#             'propagate': False,
+#         },
+#         # SQL発行
+#         'django.bd.backends': {
+#             'handlers': ['console'],
+#             'level': 'INFO',
+#             'propagate': False,
+#         },
+#     }
+# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'develop': {
+            'format': '%(asctime)s [%(levelname)s] %(process)d %(thread)d '
+                      '%(pathname)s:%(lineno)d %(message)s'
+        },
+        'simple': {
+            'format': '[%(levelname)s] %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/Users/toyooka/toyo-project/django2/{}/app.log'.format(PROJECT_NAME),
+            'formatter': 'simple',
+        }
+    },
+    'loggers': {
+        # 自作アプリ用
+         '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        # Django本体用
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

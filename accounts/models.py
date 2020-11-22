@@ -16,6 +16,12 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
+class Book(models.Model):
+    class Meta(object):
+        db_table = 'book'
+    title = models.CharField(verbose_name='タイトル', max_length=255)
+    image = models.ImageField(verbose_name='画像', null=True, blank=True)
+
 # class CustomUser(AbstractUser):
 #     class Meta:
 #         db_table ='custom_user'

@@ -1,4 +1,7 @@
 {% extends "accounts/base.html" %}
 {% block content %}
  <p>HELLO!</p>
+{% load static %}
+<img src="{% static 'accounts/test.jpg' %}">
+<p>{% static 'accounts/test.jpg' %}</p>
 {% endblock %}
