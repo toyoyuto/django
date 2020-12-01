@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='/accounts/login/')),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
 ]
